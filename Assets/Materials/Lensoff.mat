@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Lensoff
-  m_Shader: {fileID: 4800000, guid: 44952e2df569b6749a8d112c1127cd3a, type: 3}
+  m_Shader: {fileID: 4800000, guid: ce919a4c5ad147e418db4929fc360eed, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -78,7 +78,7 @@ Material:
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
-    - _On: 0
+    - _On: 1
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
