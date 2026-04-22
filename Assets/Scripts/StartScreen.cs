@@ -9,6 +9,13 @@ public class StartScreenManager : MonoBehaviour
     [Tooltip("Drag the car health canvas or health text object here so it stays hidden until Start is pressed.")]
     public GameObject carHealthUI;
 
+    [Header("Teleport References")]
+    [Tooltip("Drag the XR Origin / XR Rig root here.")]
+    public Transform xrOrigin;
+
+    [Tooltip("Drag the garage spawn point here.")]
+    public Transform garageSpawnPoint;
+
     void Start()
     {
         // Make sure time is normal when the scene begins.
@@ -39,6 +46,17 @@ public class StartScreenManager : MonoBehaviour
         if (carHealthUI != null)
         {
             carHealthUI.SetActive(true);
+        }
+
+        // Teleport the XR Origin to the garage rage room spawn point.
+        if (xrOrigin != null && garageSpawnPoint != null)
+        {
+            xrOrigin.position = garageSpawnPoint.position;
+            xrOrigin.rotation = garageSpawnPoint.rotation;
+        }
+        else
+        {
+            Debug.LogWarning("XR Origin or Garage Spawn Point is missing in StartScreenManager.");
         }
     }
 }
