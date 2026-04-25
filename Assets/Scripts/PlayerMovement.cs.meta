@@ -7,9 +7,9 @@ MonoImporter:
   - playerCamera: {instanceID: 0}
   - engineSound: {instanceID: 0}
   - Barlight1: {instanceID: 0}
-  - blackLensMaterial: {fileID: 2100000, guid: c4aa4575771eff5499b239d7144d85ca, type: 2}
-  - frontLightMaterial: {fileID: 2100000, guid: c4aa4575771eff5499b239d7144d85ca, type: 2}
-  - rearLightMaterial: {fileID: 2100000, guid: 669676b09cae48243a076fb41c2cc50e, type: 2}
+  - blackLensMaterial: {fileID: 2100000, guid: 71f07bd1b0a28d44b9638273b93619a0, type: 2}
+  - frontLightMaterial: {instanceID: 0}
+  - rearLightMaterial: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -12,21 +12,21 @@ public class FirstPersonController : MonoBehaviour
     [Tooltip("Gravity force applied to the character")]
     [SerializeField] private float gravity = -9.81f;
 
-    [Header("Look Settings (Arrow Keys)")]
-    [Tooltip("Degrees per second for arrow-key camera turning (Yaw/Pitch)")]
-    [SerializeField] private float lookSpeed = 140f;
+    [Header("Look Settings")]
+    [Tooltip("Mouse sensitivity for camera rotation")]
+    [SerializeField] private float mouseSensitivity = 200f;
     [Tooltip("Reference to the player's camera transform")]
     [SerializeField] private Transform playerCamera;
     [Tooltip("Maximum vertical angle the player can look up/down")]
-    [SerializeField] private float maxLookAngle = 80f;
+    [SerializeField] private float maxLookAngle = 90f;
 
     [Header("Zoom Settings")]
     [Tooltip("Field of view when zooming")]
     [SerializeField] private float zoomFOV = 30f;
     [Tooltip("Movement speed multiplier while zoomed")]
     [SerializeField] private float zoomSpeedMultiplier = 0.5f;
-    [Tooltip("Look speed multiplier while zoomed")]
-    [SerializeField] private float zoomLookMultiplier = 0.6f;
+    [Tooltip("Mouse sensitivity while zoomed")]
+    [SerializeField] private float zoomMouseSensitivity = 100f;
     [Tooltip("Speed of zoom transition")]
     [SerializeField] private float zoomTransitionSpeed = 10f;
 
@@ -59,109 +59,115 @@ public class FirstPersonController : MonoBehaviour
     private Camera playerCameraComponent;
 
     // Movement variables
-    private Vector3 velocity;
-    private float xRotation = 0f;
+    private Vector3 velocity;                 // controls movement velocity
+    private float xRotation = 0f;             // controls camera rotation
 
     // Zoom state
-    private bool isZooming = false;
-    private float normalFOV;
+    private bool isZooming = false;           // Flags for zoom mode to operate correctly
+    private float normalFOV;                  // Default field of view
+    private float normalMouseSensitivity;     // Default mouse sensitivity
 
     // Vehicle state
-    private Coroutine flickerCoroutine;
-    private bool canStartCar = false;
-    private bool isEngineOn = false;
+    private Coroutine flickerCoroutine;       // Reference to active flicker routine controls the amount of flickering everytime the car is started
+    private bool canStartCar = false;         // Allows Player to interact with vehicle
+    private bool isEngineOn = false;          // Vehicle engine state on or off
 
     void Start()
     {
+        // Initializes character controller component that allows for easy movement
         characterController = GetComponent<CharacterController>();
-
-        // Arrow-key camera means we don't need locked cursor, but leaving it hidden is fine
+        
+        // Sets the cursor state
         Cursor.lockState = CursorLockMode.Locked;
+        //cursor does not show up in first person
         Cursor.visible = false;
 
+        // Caches the camera component and initial settings
         playerCameraComponent = playerCamera.GetComponent<Camera>();
         normalFOV = playerCameraComponent.fieldOfView;
+        normalMouseSensitivity = mouseSensitivity;
 
-        // Initialize all lights to off state
+        // Initialize all lights to off state, which makes sure the different lights of the car start out off when the game starts
         foreach (var rend in headlightsRenderers)
-            if (rend != null) rend.material = blackLensMaterial;
-
+            rend.material = blackLensMaterial;
         foreach (var rend in rearLightsRenderers)
-            if (rend != null) rend.material = blackLensMaterial;
+            rend.material = blackLensMaterial;
 
-        // Spotlight starts disabled
+        // Ensures that the spotlight starts disabled, gives the effect of a show case so that when the car starts the spotlight turns on
         if (Barlight1 != null) Barlight1.enabled = false;
     }
 
     void Update()
     {
-        HandleArrowKeyLook();  // Camera with arrow keys
-        HandleMovement();      // WASD movement
+        // Handles all input and physics updates, mouse movements and other physical inputs
+        HandleMouseLook();
+        HandleMovement();
         HandleVehicleControls();
         HandleZoom();
     }
 
-    // Camera look controlled by arrow keys (Left/Right = yaw, Up/Down = pitch)
-    private void HandleArrowKeyLook()
+    // it controls mouse input for the cameras rotation
+    private void HandleMouseLook()
     {
-        float yawInput = 0f;
-        float pitchInput = 0f;
+        // Gets the raw mouse input and scale by sensitivity for smoothness
+        float mouseX = Input.GetAxisRaw("Mouse X") * mouseSensitivity * Time.deltaTime;
+        float mouseY = Input.GetAxisRaw("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
-        if (Input.GetKey(KeyCode.LeftArrow))  yawInput = -1f;
-        if (Input.GetKey(KeyCode.RightArrow)) yawInput =  1f;
-
-        if (Input.GetKey(KeyCode.UpArrow))    pitchInput =  1f;
-        if (Input.GetKey(KeyCode.DownArrow))  pitchInput = -1f;
-
-        float currentLookSpeed = isZooming ? lookSpeed * zoomLookMultiplier : lookSpeed;
-
-        float yaw = yawInput * currentLookSpeed * Time.deltaTime;
-        float pitch = pitchInput * currentLookSpeed * Time.deltaTime;
-
-        // Yaw on player body
-        transform.Rotate(Vector3.up * yaw);
-
-        // Pitch on camera
-        xRotation = Mathf.Clamp(xRotation + pitch, -maxLookAngle, maxLookAngle);
+        // Rotates player horizontally
+        transform.Rotate(Vector3.up * mouseX);
+        
+        // Calculates and clamps the vertical rotation for smooth firstperson action when moving the cam
+        xRotation = Mathf.Clamp(xRotation - mouseY, -maxLookAngle, maxLookAngle);
+        
+        // Apply vertical rotation to camera
         playerCamera.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
     }
 
-    // WASD movement + gravity
+    
+    // controls the player movement and gravity
     private void HandleMovement()
     {
+        // Resets the vertical velocity when the character is grounded
         if (characterController.isGrounded && velocity.y < 0f)
             velocity.y = -2f;
 
-        // WASD uses the default Horizontal/Vertical axes
-        float x = Input.GetAxisRaw("Horizontal");
-        float z = Input.GetAxisRaw("Vertical");
+        // Gets the movement input axes
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
 
+        // This is what Calculates the movement direction relative to the players orientation
         Vector3 move = transform.right * x + transform.forward * z;
-        move = Vector3.ClampMagnitude(move, 1f);
+        move = Vector3.ClampMagnitude(move, 1f);  // Normalize diagonal movement
 
+        // This Adjusts the speed based on zoom state, so that its not too slow or too fast while zoomed in
         float currentWalkSpeed = isZooming ? walkSpeed * zoomSpeedMultiplier : walkSpeed;
         float currentRunSpeed = isZooming ? runSpeed * zoomSpeedMultiplier : runSpeed;
 
+        // contorls current speed based on sprint input
         float speed = Input.GetKey(KeyCode.LeftShift) ? currentRunSpeed : currentWalkSpeed;
-
+        
+        //  movement
         characterController.Move(move * speed * Time.deltaTime);
 
+        // gravity
         velocity.y += gravity * Time.deltaTime;
         characterController.Move(velocity * Time.deltaTime);
     }
 
-    // Vehicle control inputs (engine start/stop)
+    // Handles vehicle control inputs (engine start/stop)
+
     private void HandleVehicleControls()
     {
-        // Start engine: F pressed, in range, no active flicker, engine off
+        // Starts the engine conditions: F pressed, in range, no active flicker, engine off
         if (Input.GetKeyDown(KeyCode.F) && canStartCar && flickerCoroutine == null && !isEngineOn)
         {
             isEngineOn = true;
             flickerCoroutine = StartCoroutine(LightsSequence());
         }
-        // Stop engine: G pressed
+        // Stop engine conditions: G pressed
         else if (Input.GetKeyDown(KeyCode.G))
         {
+            // Stop any active flicker routine
             if (flickerCoroutine != null)
             {
                 StopCoroutine(flickerCoroutine);
@@ -171,27 +177,41 @@ public class FirstPersonController : MonoBehaviour
             isEngineOn = false;
             ToggleAllLights(false);
 
+            // Stop engine sound if playing
             if (engineSound != null)
                 engineSound.Stop();
         }
     }
 
-    // Zoom (FOV transition only; look is slowed via zoomLookMultiplier)
+    // Handles the zoom functionality (FOV and sensitivity changes)
     private void HandleZoom()
     {
+        // Toggle zoom state on Z press
         if (Input.GetKeyDown(KeyCode.Z))
+        {
             isZooming = !isZooming;
+        }
 
+        // Smoothly transition FOV how it looks when zooming in and out and how smooth it is
         playerCameraComponent.fieldOfView = Mathf.Lerp(
             playerCameraComponent.fieldOfView,
             isZooming ? zoomFOV : normalFOV,
             zoomTransitionSpeed * Time.deltaTime
         );
+
+        // Smoothly adjust mouse sensitivity
+        mouseSensitivity = Mathf.Lerp(
+            mouseSensitivity,
+            isZooming ? zoomMouseSensitivity : normalMouseSensitivity,
+            zoomTransitionSpeed * Time.deltaTime
+        );
     }
 
-    // Light flicker sequence when starting engine
-    private IEnumerator LightsSequence()
+    
+    // Coroutine that handles the light flicker sequence when starting engine
+       private IEnumerator LightsSequence()
     {
+        // Three flicker cycles
         for (int i = 0; i < 3; i++)
         {
             ToggleAllLights(true);
@@ -200,67 +220,71 @@ public class FirstPersonController : MonoBehaviour
             yield return new WaitForSeconds(Random.Range(flickerMinInterval, flickerMaxInterval));
         }
 
+        // Final light activation
         ToggleAllLights(true);
-
         if (engineSound != null)
             engineSound.Play();
 
         flickerCoroutine = null;
     }
 
+
     // Toggles all vehicle lights and materials
+    // <param name="on">Whether to activate lights</param>
     private void ToggleAllLights(bool on)
     {
+        // Selects the appropriate materials based on state
         Material frontMat = on ? frontLightMaterial : blackLensMaterial;
         Material rearMat = on ? rearLightMaterial : blackLensMaterial;
 
+        // Apply to all headlights
         foreach (var rend in headlightsRenderers)
-            if (rend != null) rend.material = frontMat;
+            rend.material = frontMat;
 
+        // Apply to all rear lights
         foreach (var rend in rearLightsRenderers)
-            if (rend != null) rend.material = rearMat;
+            rend.material = rearMat;
 
+        // Toggle spotlight
         if (Barlight1 != null)
             Barlight1.enabled = on;
     }
 
+    
     // Enables/disables vehicle interaction capability
+    
+    // <param name="canStart">Whether vehicle can be started</param>
     public void EnableCarInteraction(bool canStart)
     {
         canStartCar = canStart;
     }
 
+    
+    // Handles the GUI display of control prompts
+
     void OnGUI()
     {
-        // Keep UI in-frame with padding
-        float pad = 10f;
-
+        // Configure GUI style
         GUIStyle messageStyle = new GUIStyle(GUI.skin.label);
         messageStyle.fontSize = 24;
         messageStyle.normal.textColor = Color.white;
-        messageStyle.wordWrap = true;
 
-        // Vehicle prompt (top-left)
+        // Display vehicle interaction prompt when in range
         if (canStartCar)
         {
             string carMessage = !isEngineOn ? "Press F to start the engine." : "Press G to cut off the engine.";
-            GUI.Label(new Rect(pad, pad, Screen.width - pad * 2f, 60f), carMessage, messageStyle);
+            GUI.Label(new Rect(10, 10, 400, 50), carMessage, messageStyle);
         }
 
-        // Controls (bottom-left)
-        GUI.Label(
-            new Rect(pad, Screen.height - 40f - pad, Screen.width * 0.6f, 40f),
-            "Move: WASD   Sprint: Left Shift   Look: Arrow Keys",
-            messageStyle
-        );
+        // Permanent movement controls display
+        string movementMessage = "Movement: WASD or Arrow Keys";
+        GUI.Label(new Rect(10, Screen.height - 40, 400, 50), movementMessage, messageStyle);
 
-        // Zoom instructions (bottom-right) — width clamped so it stays on screen
-        float rightWidth = Mathf.Min(520f, Screen.width - pad * 2f);
-        float rightX = Screen.width - rightWidth - pad;
-
+        // Permanent zoom instructions display
+        string zoomMessage = "Press Z to zoom in and examine the cars\n(You can pass through them to view the interiors)";
         GUI.Label(
-            new Rect(rightX, Screen.height - 70f - pad, rightWidth, 70f),
-            "Press Z to zoom in and examine the cars\n(You can pass through them to view the interiors)",
+            new Rect(Screen.width - 410, Screen.height - 60, 400, 60),
+            zoomMessage,
             messageStyle
         );
     }
