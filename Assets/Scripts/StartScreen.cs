@@ -6,8 +6,8 @@ public class StartScreenManager : MonoBehaviour
     [Tooltip("The start screen canvas or panel shown at the beginning.")]
     public GameObject startScreen;
 
-    [Tooltip("Drag the car health canvas or health text object here so it stays hidden until Start is pressed.")]
-    public GameObject carHealthUI;
+    [Tooltip("Drag all car health canvas objects here so they stay hidden until Start is pressed.")]
+    public GameObject[] carHealthUIs;
 
     [Header("Teleport References")]
     [Tooltip("Drag the XR Origin / XR Rig root here.")]
@@ -27,10 +27,13 @@ public class StartScreenManager : MonoBehaviour
             startScreen.SetActive(true);
         }
 
-        // Hide the car health UI until the player starts the game.
-        if (carHealthUI != null)
+        // Hide all car health UI canvases until the player starts the game.
+        foreach (GameObject healthUI in carHealthUIs)
         {
-            carHealthUI.SetActive(false);
+            if (healthUI != null)
+            {
+                healthUI.SetActive(false);
+            }
         }
     }
 
@@ -42,10 +45,13 @@ public class StartScreenManager : MonoBehaviour
             startScreen.SetActive(false);
         }
 
-        // Show the car health UI now that gameplay has begun.
-        if (carHealthUI != null)
+        // Show all car health UI canvases now that gameplay has begun.
+        foreach (GameObject healthUI in carHealthUIs)
         {
-            carHealthUI.SetActive(true);
+            if (healthUI != null)
+            {
+                healthUI.SetActive(true);
+            }
         }
 
         // Teleport the XR Origin to the garage rage room spawn point.
