@@ -23,9 +23,11 @@ public class CarHealth : MonoBehaviour
 
     // Stops the win logic from running more than once.
     private bool isDestroyed = false;
+    private CarPartFALL carPartFALL;
 
     void Start()
     {
+        carPartFALL = GetComponent<CarPartFALL>();
         // Start the car at full health.
         currentHealth = maxHealth;
 
@@ -41,6 +43,7 @@ public class CarHealth : MonoBehaviour
 
     public void TakeDamage(int damageAmount)
     {
+
         // If the car has already been destroyed, ignore extra damage.
         if (isDestroyed)
         {
@@ -65,6 +68,8 @@ public class CarHealth : MonoBehaviour
         if (currentHealth <= 0)
         {
             isDestroyed = true;
+
+            carPartFALL.Deteach();
             WinGame();
         }
     }
