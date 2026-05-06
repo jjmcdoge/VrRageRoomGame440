@@ -15,11 +15,11 @@ public class CarHealth : MonoBehaviour
     public bool destroyCarOnZeroHealth = true;
 
     private bool isDestroyed = false;
-    private CarPartFALL carPartFALL;
+    private CarPartFALL[] carPartFALL;
 
     void Start()
     {
-        carPartFALL = GetComponent<CarPartFALL>();
+        carPartFALL = GetComponentsInChildren<CarPartFALL>();
         currentHealth = maxHealth;
 
         if (winScreen != null)
@@ -52,9 +52,9 @@ public class CarHealth : MonoBehaviour
         {
             isDestroyed = true;
 
-            if (carPartFALL != null)
+            foreach (CarPartFALL part in carPartFALL)
             {
-                carPartFALL.Deteach();
+                part.Deteach();
             }
 
             WinGame();
@@ -87,11 +87,11 @@ public class CarHealth : MonoBehaviour
             winScreen.SetActive(true);
         }
 
-        if (destroyCarOnZeroHealth)
-        {
-            gameObject.SetActive(false);
-        }
+        Invoke(nameof(FreezeGame), 3f);
+    }
 
+    void FreezeGame()
+    {
         Time.timeScale = 0f;
     }
 }

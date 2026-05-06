@@ -66,6 +66,7 @@ public class VRWeaponDamage : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("COLLIDED WITH: " + collision.gameObject.name);
         // If the weapon is not being held, do not apply damage.
         if (!isHeld)
         {
@@ -79,7 +80,7 @@ public class VRWeaponDamage : MonoBehaviour
         }
 
         // Try to find a CarHealth script on the object we hit.
-        CarHealth carHealth = collision.gameObject.GetComponent<CarHealth>();
+        CarHealth carHealth = collision.gameObject.GetComponentInParent<CarHealth>();
 
         // If the object we hit has CarHealth, apply damage.
         if (carHealth != null)
