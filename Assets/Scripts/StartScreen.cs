@@ -56,10 +56,14 @@ public class StartScreenManager : MonoBehaviour
 
         // Teleport the XR Origin to the garage rage room spawn point.
         if (xrOrigin != null && garageSpawnPoint != null)
-        {
-            xrOrigin.position = garageSpawnPoint.position;
-            xrOrigin.rotation = garageSpawnPoint.rotation;
-        }
+{
+    Vector3 cameraOffset = Camera.main.transform.position - xrOrigin.position;
+
+    Vector3 targetPosition = garageSpawnPoint.position - new Vector3(cameraOffset.x, 0f, cameraOffset.z);
+
+    xrOrigin.position = targetPosition;
+    xrOrigin.rotation = garageSpawnPoint.rotation;
+}
         else
         {
             Debug.LogWarning("XR Origin or Garage Spawn Point is missing in StartScreenManager.");

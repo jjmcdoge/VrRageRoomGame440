@@ -12,15 +12,24 @@ public class CarHealth : MonoBehaviour
     public TextMeshProUGUI healthText;
 
     [Header("Car Destruction")]
-    public bool destroyCarOnZeroHealth = true;
+    public bool detachAllPartsOnZeroHealth = true;
 
+    [Header("Part Breaking Settings")]
+    public CarPartFALL[] carParts;
+    public int hitsNeededPerPart = 4;
+
+    private int currentPartIndex = 0;
+    private int currentPartHitCount = 0;
     private bool isDestroyed = false;
-    private CarPartFALL[] carPartFALL;
 
     void Start()
     {
-        carPartFALL = GetComponentsInChildren<CarPartFALL>();
         currentHealth = maxHealth;
+
+        if (carParts == null || carParts.Length == 0)
+        {
+            carParts = GetComponentsInChildren<CarPartFALL>();
+        }
 
         if (winScreen != null)
         {
@@ -48,16 +57,57 @@ public class CarHealth : MonoBehaviour
 
         UpdateHealthUI();
 
+        DamageCurrentPart();
+
         if (currentHealth <= 0)
         {
             isDestroyed = true;
 
-            foreach (CarPartFALL part in carPartFALL)
+            if (detachAllPartsOnZeroHealth)
             {
-                part.Deteach();
+                DetachAllRemainingParts();
             }
 
             WinGame();
+        }
+    }
+
+    void DamageCurrentPart()
+    {
+        if (carParts == null || carParts.Length == 0)
+        {
+            return;
+        }
+
+        if (currentPartIndex >= carParts.Length)
+        {
+            return;
+        }
+
+        currentPartHitCount++;
+
+        Debug.Log("Current part hit count: " + currentPartHitCount + " / " + hitsNeededPerPart);
+
+        if (currentPartHitCount >= hitsNeededPerPart)
+        {
+            if (carParts[currentPartIndex] != null)
+            {
+                carParts[currentPartIndex].Deteach();
+            }
+
+            currentPartIndex++;
+            currentPartHitCount = 0;
+        }
+    }
+
+    void DetachAllRemainingParts()
+    {
+        for (int i = currentPartIndex; i < carParts.Length; i++)
+        {
+            if (carParts[i] != null)
+            {
+                carParts[i].Deteach();
+            }
         }
     }
 
