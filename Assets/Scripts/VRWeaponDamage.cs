@@ -21,12 +21,15 @@ public class VRWeaponDamage : MonoBehaviour
     // Stores the last time damage was dealt.
     // This is used to prevent very rapid repeated damage.
     private float lastDamageTime = -999f;
-
+    AudioSource audioSource;
+    public AudioClip hitSound;
     void Awake()
     {
         // Grab the XRGrabInteractable from this object.
         // Make sure the weapon has one in the Inspector.
         grabInteractable = GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     void OnEnable()
@@ -85,10 +88,17 @@ public class VRWeaponDamage : MonoBehaviour
         // If the object we hit has CarHealth, apply damage.
         if (carHealth != null)
         {
+            
             carHealth.TakeDamage(damageAmount);
 
             // Store the current time so the cooldown begins now.
             lastDamageTime = Time.time;
+            // Play a hit sound
+            if (audioSource != null && hitSound != null)
+            {
+                Debug.Log("PLAYING HAMMER SOUND");
+                audioSource.PlayOneShot(hitSound);
+            }
 
             Debug.Log("Weapon hit the car and dealt " + damageAmount + " damage.");
         }
