@@ -4941,7 +4941,7 @@ MonoBehaviour:
   m_SnapToColliderVolume: 1
   m_ReinitializeDynamicAttachEverySingleGrab: 1
   m_AttachEaseInTime: 0.15
-  m_MovementType: 2
+  m_MovementType: 0
   m_PredictedVisualsTransform: {fileID: 0}
   m_VelocityDamping: 1
   m_VelocityScale: 1
@@ -9223,7 +9223,7 @@ MonoBehaviour:
   m_SnapToColliderVolume: 1
   m_ReinitializeDynamicAttachEverySingleGrab: 1
   m_AttachEaseInTime: 0.15
-  m_MovementType: 2
+  m_MovementType: 0
   m_PredictedVisualsTransform: {fileID: 0}
   m_VelocityDamping: 1
   m_VelocityScale: 1
@@ -9296,7 +9296,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 2
+  m_CollisionDetection: 3
 --- !u!114 &1327508095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11485,7 +11485,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 2
+  m_CollisionDetection: 3
 --- !u!65 &1679962381
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11604,7 +11604,7 @@ MonoBehaviour:
   m_SnapToColliderVolume: 1
   m_ReinitializeDynamicAttachEverySingleGrab: 1
   m_AttachEaseInTime: 0.15
-  m_MovementType: 2
+  m_MovementType: 0
   m_PredictedVisualsTransform: {fileID: 0}
   m_VelocityDamping: 1
   m_VelocityScale: 1
@@ -119589,9 +119589,8 @@ GameObject:
   - component: {fileID: 1577424271931278406}
   - component: {fileID: 5999320882829220637}
   - component: {fileID: 3335034224282366186}
-  - component: {fileID: 5999320882829220638}
   - component: {fileID: 5999320882829220640}
-  - component: {fileID: 5999320882829220639}
+  - component: {fileID: 5999320882829220641}
   m_Layer: 0
   m_Name: LeftSideofHoodPArtParent
   m_TagString: Untagged
@@ -147609,6 +147608,7 @@ MonoBehaviour:
   detachAllPartsOnZeroHealth: 1
   carParts:
   - {fileID: 8180036120580061062}
+  - {fileID: 5999320882829220641}
   hitsNeededPerPart: 5
 --- !u!1 &3939320452313418062
 GameObject:
@@ -220684,43 +220684,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3110178947943005984}
   m_Mesh: {fileID: -6326459762279048426, guid: d71671f5f12e8a64889d25c66229d94b, type: 3}
---- !u!114 &5999320882829220638
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3110178947943005984}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2a0b21cba4e90c48a7e0cbf1524e3db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BreakableCarPart
-  breakForce: 5
-  upwardForce: 2
-  disappearAfterSeconds: 6
---- !u!64 &5999320882829220639
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3110178947943005984}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -6326459762279048426, guid: d71671f5f12e8a64889d25c66229d94b, type: 3}
 --- !u!54 &5999320882829220640
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -220748,6 +220711,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &5999320882829220641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3110178947943005984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03eddefbdd6ad0047b31e09268e34da7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CarPartFALL
+  destroyDelay: 5
 --- !u!1 &5999544838224733621
 GameObject:
   m_ObjectHideFlags: 0
@@ -256356,7 +256332,6 @@ GameObject:
   - component: {fileID: 8588029227209501726}
   - component: {fileID: 8588029227209501729}
   - component: {fileID: 8588029227209501728}
-  - component: {fileID: 8588029227209501727}
   m_Layer: 0
   m_Name: Porsche_911_GT2.582
   m_TagString: Untagged
@@ -306026,21 +306001,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &8588029227209501727
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7075772195203234048}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2a0b21cba4e90c48a7e0cbf1524e3db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BreakableCarPart
-  breakForce: 5
-  upwardForce: 2
-  disappearAfterSeconds: 6
 --- !u!54 &8588029227209501728
 Rigidbody:
   m_ObjectHideFlags: 0
