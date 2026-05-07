@@ -9,7 +9,9 @@ public class CarHealth : MonoBehaviour
 
     [Header("UI References")]
     public GameObject winScreen;
-    public TextMeshProUGUI healthText;
+
+    [Tooltip("Drag all 4 car health text objects here.")]
+    public TextMeshProUGUI[] healthTexts;
 
     [Header("Car Destruction")]
     public bool detachAllPartsOnZeroHealth = true;
@@ -35,6 +37,10 @@ public class CarHealth : MonoBehaviour
         {
             winScreen.SetActive(false);
         }
+        else
+        {
+            Debug.LogWarning("Win Screen is not assigned on CarHealth.");
+        }
 
         UpdateHealthUI();
     }
@@ -56,7 +62,6 @@ public class CarHealth : MonoBehaviour
         Debug.Log("Car took damage. Current health: " + currentHealth);
 
         UpdateHealthUI();
-
         DamageCurrentPart();
 
         if (currentHealth <= 0)
@@ -113,17 +118,26 @@ public class CarHealth : MonoBehaviour
 
     void UpdateHealthUI()
     {
-        if (healthText != null)
+        if (healthTexts == null || healthTexts.Length == 0)
         {
-            healthText.text = "Car Health: " + currentHealth + " / " + maxHealth;
+            Debug.LogWarning("No health texts assigned.");
+            return;
+        }
 
-            if (currentHealth <= 3)
+        foreach (TextMeshProUGUI text in healthTexts)
+        {
+            if (text != null)
             {
-                healthText.color = Color.red;
-            }
-            else
-            {
-                healthText.color = Color.white;
+                text.text = "Car Health: " + currentHealth + " / " + maxHealth;
+
+                if (currentHealth <= 3)
+                {
+                    text.color = Color.red;
+                }
+                else
+                {
+                    text.color = Color.white;
+                }
             }
         }
     }
@@ -135,6 +149,11 @@ public class CarHealth : MonoBehaviour
         if (winScreen != null)
         {
             winScreen.SetActive(true);
+            Debug.Log("Win screen activated.");
+        }
+        else
+        {
+            Debug.LogError("Win screen is missing. Drag your win screen into the CarHealth script.");
         }
 
         Invoke(nameof(FreezeGame), 3f);
