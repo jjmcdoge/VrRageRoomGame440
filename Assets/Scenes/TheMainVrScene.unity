@@ -12542,6 +12542,18 @@ MonoBehaviour:
   carHealthUIs: []
   xrOrigin: {fileID: 512457120}
   garageSpawnPoint: {fileID: 892158118}
+  startButton:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Start Button
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 89570946-3216-4f0e-a827-7046da44ce4e
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 3279264004350380116, guid: c348712bda248c246b8c49b3db54643f, type: 3}
 --- !u!4 &1887905110
 Transform:
   m_ObjectHideFlags: 0

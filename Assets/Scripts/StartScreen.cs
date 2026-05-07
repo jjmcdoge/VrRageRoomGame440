@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class StartScreenManager : MonoBehaviour
 {
@@ -16,18 +17,22 @@ public class StartScreenManager : MonoBehaviour
     [Tooltip("Drag the garage spawn point here.")]
     public Transform garageSpawnPoint;
 
+    [Header("VR Input")]
+    [Tooltip("Assign the A button input action here.")]
+    public InputActionProperty startButton;
+
+    // Prevents StartGame from running multiple times.
+    private bool gameStarted = false;
+
     void Start()
     {
-        // Make sure time is normal when the scene begins.
         Time.timeScale = 1f;
 
-        // Show the start screen first.
         if (startScreen != null)
         {
             startScreen.SetActive(true);
         }
 
-        // Hide all car health UI canvases until the player starts the game.
         foreach (GameObject healthUI in carHealthUIs)
         {
             if (healthUI != null)
@@ -35,17 +40,28 @@ public class StartScreenManager : MonoBehaviour
                 healthUI.SetActive(false);
             }
         }
+
+        // Enable the VR input action.
+        startButton.action.Enable();
+    }
+
+    void Update()
+    {
+        // When A button is pressed, start the game.
+        if (!gameStarted && startButton.action.WasPressedThisFrame())
+        {
+            gameStarted = true;
+            StartGame();
+        }
     }
 
     public void StartGame()
     {
-        // Hide the start screen.
         if (startScreen != null)
         {
             startScreen.SetActive(false);
         }
 
-        // Show all car health UI canvases now that gameplay has begun.
         foreach (GameObject healthUI in carHealthUIs)
         {
             if (healthUI != null)
@@ -54,16 +70,17 @@ public class StartScreenManager : MonoBehaviour
             }
         }
 
-        // Teleport the XR Origin to the garage rage room spawn point.
         if (xrOrigin != null && garageSpawnPoint != null)
-{
-    Vector3 cameraOffset = Camera.main.transform.position - xrOrigin.position;
+        {
+            Vector3 cameraOffset = Camera.main.transform.position - xrOrigin.position;
 
-    Vector3 targetPosition = garageSpawnPoint.position - new Vector3(cameraOffset.x, 0f, cameraOffset.z);
+            Vector3 targetPosition =
+                garageSpawnPoint.position -
+                new Vector3(cameraOffset.x, 0f, cameraOffset.z);
 
-    xrOrigin.position = targetPosition;
-    xrOrigin.rotation = garageSpawnPoint.rotation;
-}
+            xrOrigin.position = targetPosition;
+            xrOrigin.rotation = garageSpawnPoint.rotation;
+        }
         else
         {
             Debug.LogWarning("XR Origin or Garage Spawn Point is missing in StartScreenManager.");
