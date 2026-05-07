@@ -9,8 +9,6 @@ public class CarHealth : MonoBehaviour
 
     [Header("UI References")]
     public GameObject winScreen;
-
-    [Tooltip("Drag all 4 car health text objects here.")]
     public TextMeshProUGUI[] healthTexts;
 
     [Header("Car Destruction")]
@@ -37,10 +35,6 @@ public class CarHealth : MonoBehaviour
         {
             winScreen.SetActive(false);
         }
-        else
-        {
-            Debug.LogWarning("Win Screen is not assigned on CarHealth.");
-        }
 
         UpdateHealthUI();
     }
@@ -48,16 +42,12 @@ public class CarHealth : MonoBehaviour
     public void TakeDamage(int damageAmount)
     {
         if (isDestroyed)
-        {
             return;
-        }
 
         currentHealth -= damageAmount;
 
         if (currentHealth < 0)
-        {
             currentHealth = 0;
-        }
 
         Debug.Log("Car took damage. Current health: " + currentHealth);
 
@@ -80,14 +70,10 @@ public class CarHealth : MonoBehaviour
     void DamageCurrentPart()
     {
         if (carParts == null || carParts.Length == 0)
-        {
             return;
-        }
 
         if (currentPartIndex >= carParts.Length)
-        {
             return;
-        }
 
         currentPartHitCount++;
 
@@ -118,26 +104,12 @@ public class CarHealth : MonoBehaviour
 
     void UpdateHealthUI()
     {
-        if (healthTexts == null || healthTexts.Length == 0)
-        {
-            Debug.LogWarning("No health texts assigned.");
-            return;
-        }
-
         foreach (TextMeshProUGUI text in healthTexts)
         {
             if (text != null)
             {
                 text.text = "Car Health: " + currentHealth + " / " + maxHealth;
-
-                if (currentHealth <= 3)
-                {
-                    text.color = Color.red;
-                }
-                else
-                {
-                    text.color = Color.white;
-                }
+                text.color = currentHealth <= 3 ? Color.red : Color.white;
             }
         }
     }
@@ -149,18 +121,8 @@ public class CarHealth : MonoBehaviour
         if (winScreen != null)
         {
             winScreen.SetActive(true);
-            Debug.Log("Win screen activated.");
-        }
-        else
-        {
-            Debug.LogError("Win screen is missing. Drag your win screen into the CarHealth script.");
         }
 
-        Invoke(nameof(FreezeGame), 3f);
-    }
-
-    void FreezeGame()
-    {
-        Time.timeScale = 0f;
+        // No Time.timeScale freeze here, so the player can still move.
     }
 }
