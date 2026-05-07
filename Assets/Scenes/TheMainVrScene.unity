@@ -2357,6 +2357,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27fbc1065515a084d85d77941fa64b0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RestartSceneButton
+  bButtonAction:
+    m_UseReference: 0
+    m_Action:
+      m_Name: B Button
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: cb59c8bd-84f8-4497-8594-73b30039c941
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings:
+      - m_Name: 
+        m_Id: 7288e33f-96d4-49c8-8e53-f571e2ae8e71
+        m_Path: <QuestTouchPlusController>{RightHand}/secondaryButton
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: B Button
+        m_Flags: 0
+      m_Flags: 0
+    m_Reference: {fileID: 0}
 --- !u!1001 &252246837
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9932,6 +9952,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27fbc1065515a084d85d77941fa64b0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RestartTimeScaleOnSceneLoad
+  bButtonAction:
+    m_UseReference: 0
+    m_Action:
+      m_Name: B Button
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 5f045982-6bed-4460-a2c0-4146ff57ffad
+      m_Processors: 
+      m_Interactions: Tap
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
 --- !u!4 &1149593220
 Transform:
   m_ObjectHideFlags: 0
@@ -13926,7 +13958,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6598815579406187026, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6598815579406187027, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
       propertyPath: m_LocalPosition.x
@@ -13974,7 +14006,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -15838,6 +15870,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27fbc1065515a084d85d77941fa64b0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RestartSceneButton
+  bButtonAction:
+    m_UseReference: 0
+    m_Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 11d2cb10-1cb1-47ac-837f-f57121044a98
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
 --- !u!1 &2127320227
 GameObject:
   m_ObjectHideFlags: 0
