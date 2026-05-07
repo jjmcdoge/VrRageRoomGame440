@@ -19,9 +19,9 @@ public class ArmSwingMovement : MonoBehaviour
 
     void Update()
     {
-        cooldownTimer -= Time.deltaTime;
+        cooldownTimer -= Time.deltaTime; 
 
-        Vector3 leftVel = leftVelocityAction.action.ReadValue<Vector3>();
+        Vector3 leftVel = leftVelocityAction.action.ReadValue<Vector3>(); 
         Vector3 rightVel = rightVelocityAction.action.ReadValue<Vector3>();
 
         float leftSpeed = leftVel.magnitude;
