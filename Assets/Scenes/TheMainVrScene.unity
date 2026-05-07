@@ -148000,8 +148000,11 @@ MonoBehaviour:
   - {fileID: 506850213}
   - {fileID: 4706117438777983225}
   - {fileID: 5917754744842648292}
-  - {fileID: 4706117438777983225}
-  - {fileID: 4706117438777983225}
+  - {fileID: 8902968044440178116}
+  - {fileID: 9185990035700095114}
+  - {fileID: 8609039370008428612}
+  - {fileID: 5914642242607288962}
+  - {fileID: 6596851709210827913}
   hitsNeededPerPart: 5
 --- !u!1 &3939320452313418062
 GameObject:
@@ -207991,7 +207994,6 @@ GameObject:
   - component: {fileID: 8125274027354028302}
   - component: {fileID: 8902968044440178117}
   - component: {fileID: 8902968044440178116}
-  - component: {fileID: 8902968044440178118}
   - component: {fileID: 8902968044440178115}
   m_Layer: 0
   m_Name: RightRearWheelPivot (2)
@@ -217782,6 +217784,9 @@ GameObject:
   - component: {fileID: 3136565195817867639}
   - component: {fileID: 2728164008154934460}
   - component: {fileID: 3032965676531543494}
+  - component: {fileID: 5914642242607288961}
+  - component: {fileID: 5914642242607288960}
+  - component: {fileID: 5914642242607288962}
   m_Layer: 0
   m_Name: HEADLIGHT1
   m_TagString: Untagged
@@ -217789,6 +217794,67 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &5914642242607288960
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5914642242607288959}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.00236867, y: 0.00198669, z: 0.0025568493}
+  m_Center: {x: -0.0063856747, y: 0.000423515, z: -0.017748086}
+--- !u!54 &5914642242607288961
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5914642242607288959}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 3
+--- !u!114 &5914642242607288962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5914642242607288959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03eddefbdd6ad0047b31e09268e34da7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CarPartFALL
+  destroyDelay: 5
 --- !u!4 &5915055838569730183
 Transform:
   m_ObjectHideFlags: 0
@@ -241314,6 +241380,9 @@ GameObject:
   - component: {fileID: 2592000385500453854}
   - component: {fileID: 2093984106827156258}
   - component: {fileID: 4227581276273196289}
+  - component: {fileID: 6596851709210827915}
+  - component: {fileID: 6596851709210827914}
+  - component: {fileID: 6596851709210827913}
   m_Layer: 0
   m_Name: HEADLIGHT2
   m_TagString: Untagged
@@ -241321,6 +241390,67 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &6596851709210827913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6596851709210827912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03eddefbdd6ad0047b31e09268e34da7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CarPartFALL
+  destroyDelay: 5
+--- !u!54 &6596851709210827914
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6596851709210827912}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 3
+--- !u!65 &6596851709210827915
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6596851709210827912}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.00236766, y: 0.00198669, z: 0.0025578812}
+  m_Center: {x: 0.0064134, y: 0.000423515, z: -0.017737981}
 --- !u!4 &6596992970429605016
 Transform:
   m_ObjectHideFlags: 0
@@ -277804,8 +277934,11 @@ GameObject:
   - component: {fileID: 8609039370008428609}
   - component: {fileID: 7189797317666974001}
   - component: {fileID: 3665484883090034722}
+  - component: {fileID: 8609039370008428611}
+  - component: {fileID: 8609039370008428610}
+  - component: {fileID: 8609039370008428612}
   m_Layer: 0
-  m_Name: Porsche_911_GT2.3158
+  m_Name: RightDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -306980,6 +307113,67 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3525579303792142316}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8609039370008428610
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7736697384533295943}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.0013643494, y: 0.0058624297, z: 0.01282663}
+  m_Center: {x: -0.007891584, y: -0.00062018505, z: -0.0006431169}
+--- !u!54 &8609039370008428611
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7736697384533295943}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 3
+--- !u!114 &8609039370008428612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7736697384533295943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03eddefbdd6ad0047b31e09268e34da7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CarPartFALL
+  destroyDelay: 5
 --- !u!4 &8609822685398691920
 Transform:
   m_ObjectHideFlags: 0
@@ -313586,8 +313780,11 @@ GameObject:
   - component: {fileID: 9095419158620909787}
   - component: {fileID: 8097333787368941514}
   - component: {fileID: 1921462681465481058}
+  - component: {fileID: 9095419158620909790}
+  - component: {fileID: 9095419158620909789}
+  - component: {fileID: 9095419158620909788}
   m_Layer: 0
-  m_Name: Porsche_911_GT2.725
+  m_Name: HoodOnCar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -318468,19 +318665,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 3
---- !u!114 &8902968044440178118
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5652017553066126913}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03eddefbdd6ad0047b31e09268e34da7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CarPartFALL
-  destroyDelay: 5
 --- !u!23 &8903065720997720724
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -324457,6 +324641,67 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5278906317911196515}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9095419158620909788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8765757322292945313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03eddefbdd6ad0047b31e09268e34da7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CarPartFALL
+  destroyDelay: 5
+--- !u!54 &9095419158620909789
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8765757322292945313}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 3
+--- !u!65 &9095419158620909790
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8765757322292945313}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.0102111, y: 0.00293579, z: 0.012721929}
+  m_Center: {x: 0.0000066200737, y: 0.001178825, z: -0.014302606}
 --- !u!4 &9095534718468171996
 Transform:
   m_ObjectHideFlags: 0
